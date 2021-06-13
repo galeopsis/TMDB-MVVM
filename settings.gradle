@@ -1,0 +1,2 @@
+rootProject.name = "MVVM TMDB Movie finder"
+include ':app'

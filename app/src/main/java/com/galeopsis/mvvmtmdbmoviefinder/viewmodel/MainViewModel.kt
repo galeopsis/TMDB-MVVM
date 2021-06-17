@@ -9,12 +9,13 @@ import com.galeopsis.mvvmtmdbmoviefinder.utils.LoadingState
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
-
     private val _loadingState = MutableLiveData<LoadingState>()
     val loadingState: LiveData<LoadingState>
         get() = _loadingState
 
+
     val data = moviesRepository.data
+
 
     init {
         fetchData()

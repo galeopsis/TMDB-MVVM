@@ -13,6 +13,12 @@ interface MoviesDao {
     @Query("SELECT * FROM movies")
     fun findAll(): LiveData<List<Movies>>
 
+    @Query("SELECT * FROM movies WHERE id = :id")
+    fun getById(id: Long): LiveData<List<Movies>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(users: Movies)
+    fun add(movies: Movies)
+
+    @Query("DELETE FROM movies")
+    fun deleteAllMovies()
 }

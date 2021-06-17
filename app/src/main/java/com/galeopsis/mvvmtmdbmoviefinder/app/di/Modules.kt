@@ -40,6 +40,7 @@ val netModule = module {
         return Cache(application.cacheDir, cacheSize.toLong())
     }
 
+
     fun provideHttpClient(cache: Cache): OkHttpClient {
         val okHttpClientBuilder = OkHttpClient.Builder()
             .cache(cache)

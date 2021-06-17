@@ -3,11 +3,12 @@ package com.galeopsis.mvvmtmdbmoviefinder
 import android.os.Bundle
 import android.view.View
 import android.view.View.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.galeopsis.mvvmtmdbmoviefinder.app.di.IMAGE_BASE_URL
 import com.galeopsis.mvvmtmdbmoviefinder.databinding.ActivityMainBinding
+import com.galeopsis.mvvmtmdbmoviefinder.model.dao.MoviesDao
 import com.galeopsis.mvvmtmdbmoviefinder.utils.LoadingState
 import com.galeopsis.mvvmtmdbmoviefinder.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         loadMovie()
 
-        mainViewModel.loadingState.observe(this, Observer {
+        mainViewModel.loadingState.observe(this, {
             when (it.status) {
 
                 LoadingState.Status.FAILED ->
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadMovie() {
-        mainViewModel.data.observe(this, Observer {
+        mainViewModel.data.observe(this, {
             it.forEach { movieData ->
                 setPoster(movieData.poster_path)
                 with(binding) {

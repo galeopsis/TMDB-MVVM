@@ -21,7 +21,6 @@
                 android:layout_height="256dp"
                 android:layout_marginTop="@dimen/app_margin_top"
                 android:contentDescription="@string/todo"
-                android:src="@drawable/poster"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,13 +53,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_marginStart"
                 android:layout_marginTop="@dimen/app_margin_top"
-                android:text="@string/default_release_date"
                 android:textSize="@dimen/app_textSize"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/released"
                 tools:text="05/08/2020" />
-
 
             <TextView
                 android:id="@+id/movieOverview"
@@ -68,10 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_marginStart"
                 android:isScrollContainer="true"
-                android:text="@string/overview"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/movieTitle" />
-
 
             <TextView
                 android:id="@+id/rating"
@@ -90,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_marginStart"
                 android:layout_marginTop="@dimen/app_margin_top"
-                android:text="@string/default_movieRating"
                 android:textSize="@dimen/app_textSize"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -98,6 +92,5 @@
                 tools:text="9.9" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </FrameLayout>
 </ScrollView>

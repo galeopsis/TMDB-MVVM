@@ -31,11 +31,13 @@ class MovieSearchFragment : Fragment() {
     ): View {
         _binding = MovieSearchFragmentBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            goToDetailsFragment()
+        }*/
 
         val recyclerView: RecyclerView = binding.MyRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -51,12 +53,16 @@ class MovieSearchFragment : Fragment() {
                     }
                 })
         )
-
         setHasOptionsMenu(true)
-
         val movies = ArrayList<Movies>()
         movies.clear()
+        initMovies(movies, recyclerView)
+    }
 
+    private fun initMovies(
+        movies: ArrayList<Movies>,
+        recyclerView: RecyclerView
+    ) {
         mainViewModel.data.observe(viewLifecycleOwner, {
             it.forEach { movieData ->
                 movies.add(movieData)
@@ -66,10 +72,8 @@ class MovieSearchFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         })
-
         mainViewModel.loadingState.observe(viewLifecycleOwner, {
             when (it.status) {
-
                 LoadingState.Status.FAILED ->
                     Toast.makeText(context, it.msg, Toast.LENGTH_SHORT).show()
 
@@ -77,7 +81,6 @@ class MovieSearchFragment : Fragment() {
                     with(binding) {
                         loadingLayout.visibility = View.VISIBLE
                     }
-
                 LoadingState.Status.SUCCESS ->
                     with(binding) {
                         loadingLayout.visibility = View.GONE
@@ -93,7 +96,7 @@ class MovieSearchFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_search -> {
+            R.id.action_back -> {
                 Log.d("API123", "done")
                 true
             }
@@ -108,13 +111,13 @@ class MovieSearchFragment : Fragment() {
     private fun goToDetailsFragment() {
         activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.container, MovieDetailsFragment.newInstance())
-            ?.addToBackStack(null)
-            ?.commit()
+//            ?.addToBackStack(null)
+    //            ?.commit()
+            ?.commitNow()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

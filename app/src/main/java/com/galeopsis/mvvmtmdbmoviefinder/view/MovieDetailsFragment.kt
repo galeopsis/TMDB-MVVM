@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.galeopsis.mvvmtmdbmoviefinder.R
@@ -34,9 +35,9 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             goToSearchFragment()
-        }*/
+        }
         setHasOptionsMenu(true)
         mainViewModel.data.observe(viewLifecycleOwner, {
 
@@ -92,7 +93,7 @@ class MovieDetailsFragment : Fragment() {
     private fun goToSearchFragment() {
         activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.container, MovieSearchFragment.newInstance())
-            ?.addToBackStack(null)
-            ?.commit()
+//            ?.addToBackStack(null)
+            ?.commitNow()
     }
 }

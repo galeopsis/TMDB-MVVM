@@ -14,5 +14,5 @@ interface MoviesApi {
     fun getAllAsync(@Path("movieId") movieId: Int): Deferred<Movies>
 
     @GET("popular?api_key=$api_key&language=ru-RU")
-    fun getAllPopular(): Deferred<List<Movies>>
+    fun getAllPopularAsync(): Deferred<List<Movies>>
 }

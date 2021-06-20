@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.galeopsis.mvvmtmdbmoviefinder.R
 import com.galeopsis.mvvmtmdbmoviefinder.databinding.MovieSearchFragmentBinding
 import com.galeopsis.mvvmtmdbmoviefinder.model.entity.Movies
+import com.galeopsis.mvvmtmdbmoviefinder.utils.LoadingState
 import com.galeopsis.mvvmtmdbmoviefinder.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,6 +20,7 @@ class MovieSearchFragment : Fragment() {
         fun newInstance() = MovieSearchFragment()
     }
 
+    private lateinit var communicator: Communicator
     private val mainViewModel by viewModel<MainViewModel>()
     private var _binding: MovieSearchFragmentBinding? = null
     private val binding get() = _binding!!
@@ -43,8 +45,9 @@ class MovieSearchFragment : Fragment() {
                 this.requireActivity(),
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
+                        communicator = activity as Communicator
+                        communicator.passData(position)
                         goToDetailsFragment()
-                        Toast.makeText(context, "$position", Toast.LENGTH_SHORT).show()
                     }
                 })
         )
@@ -57,9 +60,28 @@ class MovieSearchFragment : Fragment() {
         mainViewModel.data.observe(viewLifecycleOwner, {
             it.forEach { movieData ->
                 movies.add(movieData)
+
                 val adapter = RecycleViewAdapter(movies)
                 recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
+            }
+        })
+
+        mainViewModel.loadingState.observe(viewLifecycleOwner, {
+            when (it.status) {
+
+                LoadingState.Status.FAILED ->
+                    Toast.makeText(context, it.msg, Toast.LENGTH_SHORT).show()
+
+                LoadingState.Status.RUNNING ->
+                    with(binding) {
+                        loadingLayout.visibility = View.VISIBLE
+                    }
+
+                LoadingState.Status.SUCCESS ->
+                    with(binding) {
+                        loadingLayout.visibility = View.GONE
+                    }
             }
         })
     }

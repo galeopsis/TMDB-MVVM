@@ -22,7 +22,6 @@ class MovieDetailsFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,29 +35,30 @@ class MovieDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-//        val movie = ArrayList<Movies>()
         mainViewModel.data.observe(viewLifecycleOwner, {
-            it.forEach { movieData ->
-//                movie.add(movieData)
-                setData(movieData)
-            }
+
+            setMovieDetails(it)
+
         })
     }
 
-    private fun setData(movieData: Movies) {
-        with(binding) {
-            movieTitle.text = movieData.title
-            movieRating.text = movieData.vote_average.toString()
-            movieOverview.text = movieData.overview
-            releaseDate.text = movieData.release_date
+    private fun setMovieDetails(it: List<Movies>) {
+        val index = arguments?.getInt("POS")
+        if (index != null) {
+            val data = it[index]
+            with(binding) {
+                movieTitle.text = data.title
+                movieRating.text = data.vote_average.toString()
+                movieOverview.text = data.overview
+                releaseDate.text = data.release_date
+            }
+            val posterPath = IMAGE_BASE_URL + data.poster_path
+
+            Glide.with(this)
+                .load(posterPath)
+                .into(binding.imageView)
         }
-        val posterPath = IMAGE_BASE_URL + movieData.poster_path
-
-        Glide.with(this)
-            .load(posterPath)
-            .into(binding.imageView)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.details_menu, menu)
@@ -67,15 +67,18 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+
             R.id.action_search -> {
                 goToSearchFragment()
                 true
             }
+
             R.id.action_favorite -> {
                 Log.d("API123", "done")
                 goToSearchFragment()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

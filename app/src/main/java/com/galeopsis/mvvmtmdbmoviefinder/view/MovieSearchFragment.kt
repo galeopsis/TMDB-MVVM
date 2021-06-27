@@ -21,6 +21,8 @@ class MovieSearchFragment : Fragment() {
         fun newInstance() = MovieSearchFragment()
     }
 
+    private var adult = false
+    private var mAdult = ""
     private lateinit var communicator: Communicator
     private val mainViewModel by viewModel<MainViewModel>()
     private var _binding: MovieSearchFragmentBinding? = null
@@ -102,7 +104,17 @@ class MovieSearchFragment : Fragment() {
                 true
             }
             R.id.action_adult -> {
+                if (item.isChecked) {
+                    item.isChecked = false
+                    adult = false
+                    mAdult = "Фильтрация взрослого контента включена!"
+                } else {
+                    item.isChecked = true
+                    adult = true
+                    mAdult = "Фильтрация взрослого контента отключена!"
+                }
                 Log.d("API123", "done")
+                Toast.makeText(context, mAdult, Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.action_clear_history -> {
@@ -117,7 +129,7 @@ class MovieSearchFragment : Fragment() {
         activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.container, MovieDetailsFragment.newInstance())
 //            ?.addToBackStack(null)
-    //            ?.commit()
+            //            ?.commit()
             ?.commitNow()
     }
 

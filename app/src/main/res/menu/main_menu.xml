@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_adult"
-        android:icon="@drawable/ic_plus_18_movie_svgrepo_com"
+        android:title="@string/adult"
+        app:showAsAction="never"
         android:orderInCategory="3"
-        android:title="@string/settings"
-        app:showAsAction="ifRoom" />
+        android:checked="true"
+        android:checkable="true"/>
     <item
         android:id="@+id/action_clear_history"
         android:icon="@drawable/ic_baseline_clear_24"
@@ -14,10 +15,10 @@
         android:title="@string/settings"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_back"
+        android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         android:orderInCategory="1"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

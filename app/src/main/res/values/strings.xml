@@ -24,4 +24,5 @@
     <string name="main">main</string>
     <string name="favorite">favorite</string>
     <string name="search">search</string>
+    <string name="adult">18+</string>
 </resources>

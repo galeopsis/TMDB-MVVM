@@ -8,18 +8,18 @@
     android:layout_margin="@dimen/app_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/searchFragmentPoster"
-            android:layout_width="131dp"
-            android:layout_height="202dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/todo"
-            android:scaleType="fitCenter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/card_layout"
+            app:layout_constraintTop_toTopOf="@id/card_layout" />
 
         <TextView
             android:id="@+id/searchFragmentTitle"

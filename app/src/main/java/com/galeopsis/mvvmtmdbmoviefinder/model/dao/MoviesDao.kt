@@ -11,13 +11,13 @@ import com.galeopsis.mvvmtmdbmoviefinder.model.entity.Movies
 interface MoviesDao {
 
     @Query("SELECT * FROM movies")
-    fun findAll(): LiveData<List<Movies>>
+    fun findAll(): LiveData<List<Movies>?>
 
     @Query("SELECT * FROM movies WHERE id = :id")
     fun getById(id: Long): LiveData<List<Movies>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(movies: Movies)
+    fun add(movies: List<Movies>)
 
     @Query("DELETE FROM movies")
     fun deleteAllMovies()

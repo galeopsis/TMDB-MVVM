@@ -12,21 +12,21 @@ import com.galeopsis.mvvmtmdbmoviefinder.app.di.IMAGE_BASE_URL
 import com.galeopsis.mvvmtmdbmoviefinder.model.entity.Movies
 
 class RecycleViewAdapter(
-    private val movieList: ArrayList<Movies>
+    private val moviesList: ArrayList<Movies>
 ) :
     RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie: Movies = movieList[position]
-        val posterPath = IMAGE_BASE_URL + movie.poster_path
+        val movies: Movies = moviesList[position]
+        val posterPath = IMAGE_BASE_URL + movies.poster_path
 
         Glide.with(holder.searchFragmentPoster.context)
             .load(posterPath)
             .into(holder.searchFragmentPoster)
 
-        holder.searchFragmentTitle.text = movie.title
-        holder.searchFragmentReleaseDate.text = movie.release_date
-        holder.searchFragmentRating.text = movie.vote_average.toString()
+        holder.searchFragmentTitle.text = movies.title
+        holder.searchFragmentReleaseDate.text = movies.release_date
+        holder.searchFragmentRating.text = movies.vote_average.toString()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,7 +35,7 @@ class RecycleViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return movieList.size
+        return moviesList.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

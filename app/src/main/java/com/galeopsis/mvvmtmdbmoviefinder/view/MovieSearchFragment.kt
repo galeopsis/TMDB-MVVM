@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.galeopsis.mvvmtmdbmoviefinder.R
 import com.galeopsis.mvvmtmdbmoviefinder.databinding.MovieSearchFragmentBinding
@@ -20,6 +21,8 @@ class MovieSearchFragment : Fragment() {
         fun newInstance() = MovieSearchFragment()
     }
 
+    private var adult = false
+    private var mAdult = ""
     private lateinit var communicator: Communicator
     private val mainViewModel by viewModel<MainViewModel>()
     private var _binding: MovieSearchFragmentBinding? = null
@@ -35,12 +38,13 @@ class MovieSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             goToDetailsFragment()
-        }*/
+        }
 
         val recyclerView: RecyclerView = binding.MyRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+//        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recyclerView.layoutManager = GridLayoutManager(context, 3, RecyclerView.HORIZONTAL, false)
 
         recyclerView.addOnItemTouchListener(
             RecyclerItemClickListener(
@@ -64,7 +68,7 @@ class MovieSearchFragment : Fragment() {
         recyclerView: RecyclerView
     ) {
         mainViewModel.data.observe(viewLifecycleOwner, {
-            it.forEach { movieData ->
+            it?.forEach { movieData ->
                 movies.add(movieData)
 
                 val adapter = RecycleViewAdapter(movies)
@@ -96,11 +100,25 @@ class MovieSearchFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_back -> {
+            R.id.action_search -> {
                 Log.d("API123", "done")
                 true
             }
             R.id.action_adult -> {
+                if (item.isChecked) {
+                    item.isChecked = false
+                    adult = false
+                    mAdult = "Фильтрация взрослого контента включена!"
+                } else {
+                    item.isChecked = true
+                    adult = true
+                    mAdult = "Фильтрация взрослого контента отключена!"
+                }
+                Log.d("API123", "done")
+                Toast.makeText(context, mAdult, Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_clear_history -> {
                 Log.d("API123", "done")
                 true
             }
@@ -111,8 +129,6 @@ class MovieSearchFragment : Fragment() {
     private fun goToDetailsFragment() {
         activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.container, MovieDetailsFragment.newInstance())
-//            ?.addToBackStack(null)
-    //            ?.commit()
             ?.commitNow()
     }
 

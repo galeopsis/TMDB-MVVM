@@ -3,7 +3,7 @@ package com.galeopsis.mvvmtmdbmoviefinder.view
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.galeopsis.mvvmtmdbmoviefinder.R
@@ -34,13 +34,15 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             goToSearchFragment()
-        }*/
+        }
         setHasOptionsMenu(true)
         mainViewModel.data.observe(viewLifecycleOwner, {
 
-            setMovieDetails(it)
+            if (it != null) {
+                setMovieDetails(it)
+            }
         })
     }
 
@@ -62,7 +64,6 @@ class MovieDetailsFragment : Fragment() {
                 .load(posterPath)
                 .into(binding.imageView)
         }
-        Toast.makeText(context, "test message", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -92,7 +93,6 @@ class MovieDetailsFragment : Fragment() {
     private fun goToSearchFragment() {
         activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.container, MovieSearchFragment.newInstance())
-            ?.addToBackStack(null)
-            ?.commit()
+            ?.commitNow()
     }
 }

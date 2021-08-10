@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/app_margin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/searchFragmentPoster"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
+            app:layout_constraintStart_toStartOf="@id/card_layout"
+            app:layout_constraintTop_toTopOf="@id/card_layout" />
+
+        <TextView
+            android:id="@+id/searchFragmentTitle"
+            android:layout_width="211dp"
+            android:layout_height="78dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintStart_toStartOf="@+id/searchFragmentReleaseDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/searchFragmentReleased"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_marginStart"
+            android:layout_marginTop="8dp"
+            android:text="@string/released"
+            app:layout_constraintStart_toEndOf="@+id/searchFragmentPoster"
+            app:layout_constraintTop_toBottomOf="@+id/searchFragmentTitle"
+            tools:text="Released:" />
+
+        <TextView
+            android:id="@+id/searchFragmentReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_marginStart"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/searchFragmentPoster"
+            app:layout_constraintTop_toBottomOf="@+id/searchFragmentReleased"
+            tools:text="05/08/2020" />
+
+        <TextView
+            android:id="@+id/searchFragmentRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_marginStart"
+            android:text="@string/rating"
+            app:layout_constraintStart_toEndOf="@+id/searchFragmentPoster"
+            app:layout_constraintTop_toBottomOf="@+id/searchFragmentReleaseDate"
+            tools:text="Rating:" />
+
+        <TextView
+            android:id="@+id/searchFragmentMovieRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_marginStart"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/searchFragmentPoster"
+            app:layout_constraintTop_toBottomOf="@+id/searchFragmentRating"
+            tools:text="9.9" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

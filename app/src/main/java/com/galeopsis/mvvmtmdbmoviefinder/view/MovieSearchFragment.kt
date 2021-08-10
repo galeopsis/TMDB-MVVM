@@ -38,9 +38,6 @@ class MovieSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            goToDetailsFragment()
-        }
 
         val recyclerView: RecyclerView = binding.MyRecyclerView
 //        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -93,7 +90,7 @@ class MovieSearchFragment : Fragment() {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -124,7 +121,7 @@ class MovieSearchFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
+    }*/
 
     private fun goToDetailsFragment() {
         activity?.supportFragmentManager?.beginTransaction()

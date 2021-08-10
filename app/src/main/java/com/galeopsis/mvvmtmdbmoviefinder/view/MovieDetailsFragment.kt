@@ -66,7 +66,7 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.details_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -88,11 +88,16 @@ class MovieDetailsFragment : Fragment() {
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
+    }*/
 
     private fun goToSearchFragment() {
         activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.container, MovieSearchFragment.newInstance())
             ?.commitNow()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

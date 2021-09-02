@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), Communicator {
         val transaction = this.supportFragmentManager.beginTransaction()
         val fragmentB = MovieDetailsFragment()
         fragmentB.arguments = bundle
-
         transaction.replace(R.id.container, fragmentB)
         transaction.commit()
     }
